@@ -15,11 +15,13 @@ const createNewWithdraw = async (req, res) => {
   }
   const createdpurchasetotal = await client.query(
     `INSERT INTO withdraw (date,category, location)
-    VALUES ('${req.body.date}','${req.body.category}','${req.body.location}');`
+    VALUES ('${req.body.date}','${req.body.category}','${req.body.location}')
+    RETURNING id;`
   );
 
   try {
-    res.json({ status: "ok", message: "saved" });
+    // res.json({ status: "ok", message: "saved" });
+    res.json(createdpurchasetotal);
   } catch (err) {
     console.error(err.message);
     process.exit(1);

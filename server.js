@@ -57,3 +57,28 @@ app.use("/withdrawproduct", withdrawproduct);
 const stockbalance = require("./router/stock_balance");
 
 app.use("/stockbalance", stockbalance);
+
+// for company page
+const company = require("./router/company");
+
+app.use("/company", company);
+
+// for unit page
+const unit = require("./router/unit");
+
+app.use("/unit", unit);
+
+// for location page
+const location = require("./router/location");
+
+app.use("/location", location);
+
+// for category page
+const category = require("./router/category");
+
+app.use("/category", category);
+
+// for Product List page
+const productList = require("./router/ProductList");
+
+app.use("/productlist", productList);
