@@ -4,25 +4,28 @@ const client = require("../db/db");
 
 //create New withdraw product
 const createNewwithdrawProduct = async (req, res) => {
-  const withdrawproduct = await client.query(
-    `SELECT * FROM withdraw_product
-    INNER JOIN withdraw
-    ON withdraw_product.withdraw_id = withdraw.id
-    Where withdraw.id = '${req.body.withdraw_id}'`
-  );
+  // const withdrawproduct = await client.query(
+  //   `SELECT * FROM withdraw_product
+  //   INNER JOIN withdraw
+  //   ON withdraw_product.withdraw_id = withdraw.id
+  //   Where withdraw_id = '${req.body.withdraw_id}'`
+  // );
 
-  const unit = await client.query(
-    `SELECT unit FROM unit where unit = '${req.body.unit}' `
-  );
-
-  const product_name = await client.query(
-    `SELECT product_name FROM productList where product_name = '${req.body.product_name}' `
-  );
+  // const unit = await client.query(
+  //   `SELECT unit FROM unit where unit = '${req.body.unit}' `
+  // );
+  // console.log(req.body.unit);
+  // const product_name = await client.query(
+  //   `SELECT product_name FROM productList where product_name = '${req.body.product_name}' `
+  // );
+  // `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
+  // VALUES ('${Qty}', '${req.body.withdraw_id}','${unit.rows[0].unit}','${product_name.rows[0].product_name}')`
+  console.log(req.body.withdraw_id);
+  console.log(req.body.Qty);
   const Qty = parseInt(req.body.Qty);
-
   const createdpurchaseproduct = await client.query(
     `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name) 
-  VALUES ('${Qty}', '${withdrawproduct.rows[0].withdraw_id}','${unit.rows[0].unit}','${product_name.rows[0].product_name}')`
+  VALUES ('${Qty}', '${req.body.withdraw_id}','${req.body.unit}','${req.body.product_name}')`
   );
 
   try {

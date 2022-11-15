@@ -10,7 +10,6 @@ const createNewPurchaseProduct = async (req, res) => {
     ON purchase_product.purchase_id = purchase.id
     Where purchase.id = '${req.body.purchase_id}'`
   );
-
   const unit = await client.query(
     `SELECT unit FROM unit where unit = '${req.body.unit}' `
   );

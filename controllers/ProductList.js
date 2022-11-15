@@ -29,7 +29,9 @@ const createNewProductList = async (req, res) => {
 //get all
 const getAllProductList = async (req, res) => {
   try {
-    const productList = await client.query(`SELECT * FROM productList `);
+    const productList = await client.query(
+      `SELECT * FROM productList ORDER BY product_name ASC `
+    );
     res.json({ productList });
     // console.log(productList.rows);
   } catch (err) {
