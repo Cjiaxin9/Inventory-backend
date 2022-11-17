@@ -82,3 +82,7 @@ app.use("/category", category);
 const productList = require("./router/ProductList");
 
 app.use("/productlist", productList);
+// for Product List page
+const role = require("./router/role");
+
+app.use("/role", role);

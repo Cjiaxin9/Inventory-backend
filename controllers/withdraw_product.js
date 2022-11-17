@@ -20,12 +20,12 @@ const createNewwithdrawProduct = async (req, res) => {
   // );
   // `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
   // VALUES ('${Qty}', '${req.body.withdraw_id}','${unit.rows[0].unit}','${product_name.rows[0].product_name}')`
-  console.log(req.body.withdraw_id);
-  console.log(req.body.Qty);
+  // console.log(req.body.withdraw_id);
+  // console.log(req.body.Qty);
   const Qty = parseInt(req.body.Qty);
   const createdpurchaseproduct = await client.query(
-    `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name) 
-  VALUES ('${Qty}', '${req.body.withdraw_id}','${req.body.unit}','${req.body.product_name}')`
+    `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name,remark) 
+  VALUES ('${Qty}', '${req.body.withdraw_id}','${req.body.unit}','${req.body.product_name}','${req.body.remark}')`
   );
 
   try {
@@ -52,10 +52,12 @@ const getAllWP = async (req, res) => {
     });
   }
 };
-//find by id
+//find by withdraw id
 const findbyid = async (req, res) => {
   const withdrawproduct = await client.query(
-    `SELECT * FROM withdraw_product where id='${req.params.id}'`
+    `SELECT * FROM withdraw_product 
+    
+    where withdraw_id ='${req.params.id}'`
   );
 
   res.json(withdrawproduct);
@@ -65,7 +67,7 @@ const findbyid = async (req, res) => {
 const deletewihdrawproduct = async (req, res) => {
   try {
     const withdrawproduct = await client.query(
-      `DELETE FROM withdraw_product where id='${req.body.id}'`
+      `DELETE FROM withdraw_product where withdraw_id='${req.body.id}'`
     );
 
     res.json({ status: "ok", message: "deleted" });
@@ -78,28 +80,28 @@ const deletewihdrawproduct = async (req, res) => {
 //update
 const updatewithdrawproduct = async (req, res) => {
   try {
-    console.log(req.body.withdraw_id, req.body.id);
-    const getID = await client.query(
-      `SELECT * FROM withdraw_product
-        WHERE withdraw_id = '${req.body.withdraw_id}' and id= '${req.body.id}';`
-    );
-    console.log(getID);
-    const unit = await client.query(
-      `SELECT unit FROM unit where unit = '${req.body.unit}' `
-    );
+    // console.log(req.body.withdraw_id, req.body.id);
+    // const getID = await client.query(
+    //   `SELECT * FROM withdraw_product
+    //     WHERE withdraw_id = '${req.body.withdraw_id}' and id= '${req.body.id}';`
+    // );
+    // console.log(getID);
+    // const unit = await client.query(
+    //   `SELECT unit FROM unit where unit = '${req.body.unit}' `
+    // );
 
-    const product_name = await client.query(
-      `SELECT product_name FROM productList where product_name = '${req.body.product_name}' `
-    );
+    // const product_name = await client.query(
+    //   `SELECT product_name FROM productList where product_name = '${req.body.product_name}' `
+    // );
     const Qty = parseInt(req.body.Qty);
 
     const updatepurchaseproductDetailsResult = await client.query(
       `UPDATE withdraw_product
         SET  
-        product_name = '${product_name.rows[0].product_name}',
+        product_name = '${req.body.product_name}',
         Qty = '${Qty}',
-        unit = '${unit.rows[0].unit}'
-        
+        unit = '${req.body.unit}',
+        remark = '${req.body.remark}'        
         WHERE withdraw_id = '${req.body.withdraw_id}' and id= '${req.body.id}';`
     );
 

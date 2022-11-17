@@ -68,22 +68,25 @@ const deletewithdraw = async (req, res) => {
 //update
 const updatewithdraw = async (req, res) => {
   try {
-    const getID = await client.query(
-      `SELECT * FROM withdraw
-        WHERE date = '${req.body.date}'and location= '${req.body.location}';`
-    );
+    // const getID = await client.query(
+    //   `SELECT * FROM withdraw
+    //     WHERE date = '${req.body.date}'and location= '${req.body.location}';`
+    // );
 
     const updatewithdrawDetailsResult = await client.query(
       `UPDATE withdraw 
         SET  
-        category = '${req.body.category}'
-        WHERE id = '${getID.rows[0].id}' ;`
+        date = '${req.body.date}',
+        category = '${req.body.category}',
+        location= '${req.body.location}'
+        WHERE id = '${req.body.id}' 
+        RETURNING id;`
     );
-
-    res.json({
-      status: "ok",
-      message: `updated successfully`,
-    });
+    res.json({ updatewithdrawDetailsResult });
+    // res.json({
+    //   status: "ok",
+    //   message: `updated successfully`,
+    // });
   } catch (err) {
     console.error(err.message);
     res.status(400).json({

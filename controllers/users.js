@@ -55,7 +55,8 @@ const login = async (req, res) => {
     // search for the username in the login table
     const user = await client.query(
       `SELECT * FROM logintable 
-      WHERE username='${req.body.username}'`
+      WHERE username='${req.body.username}'
+      `
     );
 
     // if unable to find the username, error will be printed
@@ -86,8 +87,9 @@ const login = async (req, res) => {
       id: user.rows[0].id,
       username: user.rows[0].username,
       password: user.rows[0].password,
+      role: user.rows[0].role,
     };
-
+    console.log(payload.role);
     //identify an authenticated user to generate the access and refresh token
     const access = jwt.sign(payload, process.env.ACCESS_SECRET, {
       expiresIn: "20m",
@@ -99,8 +101,9 @@ const login = async (req, res) => {
     });
 
     const response = { access, refresh };
-
-    res.json(response);
+    console.log("returning role...");
+    res.json(payload.role);
+    // res.json(response);
   } catch (err) {
     console.log("POST/ users/login", err);
     res.status(408).json({ status: "error", message: "login failed " });
@@ -149,9 +152,51 @@ const refresh = async (req, res) => {
   }
 };
 
+const updateuser = async (req, res) => {
+  try {
+    const updateuserResult = await client.query(
+      `UPDATE logintable
+        SET  
+        username = '${req.body.username}',
+        role='${req.body.role}'
+        WHERE id = '${req.body.id}' ;`
+    );
+
+    res.json({
+      status: "ok",
+      message: `updated successfully`,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).json({
+      status: "error",
+      message: `failed to update `,
+    });
+  }
+};
+const deleteuser = async (req, res) => {
+  try {
+    const deleteuserResult = await client.query(
+      `Delete FROM logintable  WHERE id = '${req.body.id}' ;`
+    );
+
+    res.json({
+      status: "ok",
+      message: `delete successfully`,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(400).json({
+      status: "error",
+      message: `failed to update `,
+    });
+  }
+};
 module.exports = {
   createUser,
   refresh,
   login,
   getAllUsers,
+  updateuser,
+  deleteuser,
 };

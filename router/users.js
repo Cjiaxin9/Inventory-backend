@@ -9,6 +9,8 @@ const {
   refresh,
   login,
   getAllUsers,
+  updateuser,
+  deleteuser,
 } = require("../controllers/users");
 
 //POST request to login
@@ -24,5 +26,9 @@ router.put("/create", createUser);
 
 //GET request to get/find all users
 router.get("/allusers", getAllUsers);
+
+router.patch("/update", updateuser);
+
+router.delete("/delete", deleteuser);
 
 module.exports = router;
