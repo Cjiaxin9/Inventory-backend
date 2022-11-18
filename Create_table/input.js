@@ -975,6 +975,44 @@ function input() {
         SELECT * FROM productList WHERE product_name = 'YUPI TWIN BURGER' 
         );`
   );
+
+  //insert user if not exist in the logintable
+  client.query(
+    `INSERT INTO logintable(username, password,role)
+        SELECT 'Estelle','$2a$09$FUC1MUUTN41ECFafBCwEru4MB33NyItGWZPv2x9viWOkZ01yB3ZlO','WORKER'
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM logintable WHERE username = 'Estelle'
+    );
+    
+    INSERT INTO logintable(username, password,role)
+        SELECT 'Sihui','$2a$09$cc.piPqS1/5lWgWmVBm66uWBqx.0GD/id05GTmYCCzaC.sewaWTwS','ADMIN'
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM logintable WHERE username = 'Sihui'
+    );`
+  );
+  // insert one withdrawlist
+  client.query(
+    `INSERT INTO withdraw ( date, category, location)
+        SELECT '2022-05-06','SNACK','AMK HUB'
+        WHERE
+        NOT EXISTS (
+         SELECT * FROM withdraw WHERE id = '1');`
+  );
+  client.query(
+    `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
+           SELECT '1','1','EA','COKE ORIGINAL TASTE 320ML - CAN'
+           WHERE
+           NOT EXISTS (
+           SELECT * FROM withdraw_product WHERE id = '1');
+
+    INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
+        SELECT '1','1','EA','CADBURY TIMEOUT WAFER'
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM withdraw_product WHERE id = '2');`
+  );
 }
 
 module.exports = input;
