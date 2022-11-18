@@ -9,8 +9,20 @@ function input() {
         NOT EXISTS (
         SELECT * FROM role WHERE role = 'WORKER'
         );
-        
-      INSERT INTO role (role)
+
+    INSERT INTO role (role)
+        SELECT'ADMIN'
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM role WHERE role = 'ADMIN'
+        );
+    INSERT INTO role (role)
+        SELECT''
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM role WHERE role = ''
+        );
+    INSERT INTO role (role)
         SELECT'SUPERVISOR'
         WHERE
         NOT EXISTS (

@@ -152,7 +152,7 @@ function table() {
   client.query(
     `CREATE TABLE IF NOT EXISTS withdraw(
           id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
-          date DATE NOT NULL DEFAULT CURRENT_DATE,
+          date DATE,
           category VARCHAR(50),
           FOREIGN KEY (category) REFERENCES category(category),
           location VARCHAR(100),
