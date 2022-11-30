@@ -55,7 +55,7 @@ const findbyid = async (req, res) => {
   const stockinproduct = await client.query(
     `SELECT * FROM stockin_product 
     
-    where id ='${req.params.id}'`
+    where stockin_id ='${req.params.id}'`
   );
 
   res.json(stockinproduct);
@@ -65,7 +65,7 @@ const findbyid = async (req, res) => {
 const deletestockinproduct = async (req, res) => {
   try {
     const stockinproduct = await client.query(
-      `DELETE FROM stockin_product where id='${req.body.id}'`
+      `DELETE FROM stockin_product where stockin_id='${req.body.id}'`
     );
 
     res.json({ status: "ok", message: "deleted" });
