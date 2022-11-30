@@ -70,16 +70,16 @@ const deletecategory = async (req, res) => {
 //update
 const updatecategory = async (req, res) => {
   try {
-    const getID = await client.query(
-      `SELECT * FROM category
-      WHERE category = '${req.body.category}';`
-    );
+    // const getID = await client.query(
+    //   `SELECT * FROM category
+    //   WHERE category = '${req.body.category}';`
+    // );
 
     const updatecategoryDetailsResult = await client.query(
       `UPDATE category
         SET  
         category = '${req.body.newcategory}'
-        WHERE category = '${getID.rows[0].category}' ;`
+        WHERE category = '${req.body.category}' ;`
     );
 
     res.json({

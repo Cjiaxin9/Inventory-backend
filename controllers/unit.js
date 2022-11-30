@@ -74,7 +74,7 @@ const updateunit = async (req, res) => {
       `UPDATE unit
         SET  
         unit = '${req.body.newunit}'
-        WHERE unit = '${getID.rows[0].unit}' ;`
+        WHERE unit = '${req.body.unit}' ;`
     );
 
     res.json({

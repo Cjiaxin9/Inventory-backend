@@ -16,12 +16,7 @@ function input() {
         NOT EXISTS (
         SELECT * FROM role WHERE role = 'ADMIN'
         );
-    INSERT INTO role (role)
-        SELECT''
-        WHERE
-        NOT EXISTS (
-        SELECT * FROM role WHERE role = ''
-        );
+  
     INSERT INTO role (role)
         SELECT'SUPERVISOR'
         WHERE
@@ -32,14 +27,7 @@ function input() {
 
   //insert category if not exist in category table
   client.query(
-    `INSERT INTO category (category)
-    SELECT'' 
-    WHERE
-    NOT EXISTS (
-    SELECT * FROM category WHERE category  = '' 
-    );
-
-    INSERT INTO category (category)
+    `    INSERT INTO category (category)
         SELECT'SNACK' 
         WHERE
         NOT EXISTS (
@@ -57,13 +45,6 @@ function input() {
   //insert location if not exist in location table
   client.query(
     `INSERT INTO location (location)
-    SELECT''
-    WHERE
-    NOT EXISTS (
-    SELECT * FROM location WHERE location  = '' 
-    );
-
-    INSERT INTO location (location)
         SELECT'ASPEN HEIGHTS'
         WHERE
         NOT EXISTS (
@@ -80,12 +61,7 @@ function input() {
 
   //insert company if not exist in company table
   client.query(
-    `INSERT INTO company (company)
-    SELECT''
-    WHERE
-    NOT EXISTS (
-    SELECT * FROM company WHERE company = '' 
-    );
+    `
     INSERT INTO company (company)
         SELECT'FAIRPRICE XTRA - ANG MO KIO HYPERMART'
         WHERE
@@ -159,13 +135,7 @@ function input() {
 
   //insert unit if not exist in unit table
   client.query(
-    `INSERT INTO unit (unit)
-    SELECT''
-    WHERE
-    NOT EXISTS (
-    SELECT * FROM unit WHERE unit  = '' 
-    );
-    INSERT INTO unit (unit)
+    `    INSERT INTO unit (unit)
         SELECT'EA'
         WHERE
         NOT EXISTS (
@@ -197,13 +167,6 @@ function input() {
   //insert product list if not exist in product list table
   client.query(
     `INSERT INTO productList (product_name)
-        SELECT''
-        WHERE
-        NOT EXISTS (
-        SELECT * FROM productList WHERE product_name = '' 
-        );
-    
-    INSERT INTO productList (product_name)
         SELECT'COKE 500ML -  BOTTLE'
         WHERE
         NOT EXISTS (
@@ -984,7 +947,12 @@ function input() {
         NOT EXISTS (
         SELECT * FROM logintable WHERE username = 'Estelle'
     );
-    
+    INSERT INTO logintable(username, password,role)
+        SELECT 'Daniel','$2a$09$UW1FOU.cQ5p3exkECccQq.0X84Aif1mbvtevqGA7H39HkOUUYHp46','SUPERVISOR'
+        WHERE
+        NOT EXISTS (
+        SELECT * FROM logintable WHERE username = 'Daniel'
+    );
     INSERT INTO logintable(username, password,role)
         SELECT 'Sihui','$2a$09$cc.piPqS1/5lWgWmVBm66uWBqx.0GD/id05GTmYCCzaC.sewaWTwS','ADMIN'
         WHERE

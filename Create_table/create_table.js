@@ -109,6 +109,35 @@ function table() {
       console.log("purchase table created");
     }
   );
+  // create Stockin table create if not exist in database
+  client.query(
+    `CREATE TABLE IF NOT EXISTS stockin(
+        id SERIAL UNIQUE NOT NULL PRIMARY KEY,
+        date DATE NOT NULL DEFAULT CURRENT_DATE
+        )`,
+    function (err) {
+      if (err) throw err;
+      console.log("Stockin created");
+    }
+  );
+  // create stockin table create if not exist in database
+  client.query(
+    `CREATE TABLE IF NOT EXISTS stockin_product(
+        id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
+        Qty int NOT NULL,
+        remark text,
+        product_name VARCHAR(100),
+        FOREIGN KEY (product_name) REFERENCES productList(product_name),
+        unit VARCHAR(20),
+        FOREIGN KEY (unit) REFERENCES unit(unit),
+        stockin_id int,
+        FOREIGN KEY (stockin_id) REFERENCES stockin(id)
+        )`,
+    function (err) {
+      if (err) throw err;
+      console.log("stockin product table created");
+    }
+  );
 
   // create purchase_product table create if not exist in database
   client.query(

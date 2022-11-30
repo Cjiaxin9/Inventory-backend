@@ -79,7 +79,7 @@ const updateCompany = async (req, res) => {
       `UPDATE company
         SET  
         company = '${req.body.newcompany}'
-        WHERE company = '${getID.rows[0].company}' ;`
+        WHERE company = '${req.body.company}' ;`
     );
 
     res.json({
