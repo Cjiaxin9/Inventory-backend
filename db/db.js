@@ -1,11 +1,11 @@
 const { Client } = require("pg");
 
 const client = new Client({
-  host: "dpg-ce3h9a2rrk02ufihqma0-a.singapore-postgres.render.com",
+  host: "dpg-ce3kkada4999gmf8muig-a.singapore-postgres.render.com",
   port: "5432",
-  user: "vendingworld_user",
-  password: "J7lO1QmzfFHtUf2yLTY9m7HLlM480o3k",
-  database: "vendingworld",
+  user: "vendingworld_k1z9_user",
+  password: "u9gugib3MNaok3nNKqqM46NWImSZmM0i",
+  database: "vendingworld_k1z9",
   ssl: true,
   // host: "localhost",
   // port: "5432",
@@ -13,12 +13,12 @@ const client = new Client({
   // password: "123456",
   // database: "vendingworld",
 });
-
+// postgres://vendingworld_k1z9_user:u9gugib3MNaok3nNKqqM46NWImSZmM0i@dpg-ce3kkada4999gmf8muig-a.singapore-postgres.render.com/vendingworld_k1z9
 postgres: client.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
   } else {
-    console.log("connected to vending nation database");
+    console.log("connected to vending world database");
   }
 });
 

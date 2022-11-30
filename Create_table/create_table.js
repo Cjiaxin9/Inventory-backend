@@ -203,21 +203,24 @@ function table() {
       console.log("stock balance table created");
     }
   );
-}
-//create Stockin table create if not exist in database
-client.query(
-  `CREATE TABLE IF NOT EXISTS stockin(
+  //create Stockin table create if not exist in database
+  client.query(
+    `CREATE TABLE IF NOT EXISTS stockin(
         id SERIAL UNIQUE NOT NULL PRIMARY KEY,
-        date DATE NOT NULL DEFAULT CURRENT_DATE
+        date DATE NOT NULL DEFAULT CURRENT_DATE,
+        company VARCHAR(100),
+          FOREIGN KEY (company) REFERENCES company(company),
+          category VARCHAR(50),
+          FOREIGN KEY (category) REFERENCES category(category)
         )`,
-  function (err) {
-    if (err) throw err;
-    console.log("Stockin created");
-  }
-);
-// create stockin table create if not exist in database
-client.query(
-  `CREATE TABLE IF NOT EXISTS stockin_product(
+    function (err) {
+      if (err) throw err;
+      console.log("Stockin created");
+    }
+  );
+  // create stockin table create if not exist in database
+  client.query(
+    `CREATE TABLE IF NOT EXISTS stockin_product(
         id SERIAL UNIQUE NOT NULL PRIMARY KEY ,
         Qty int NOT NULL,
         remark text,
@@ -228,10 +231,11 @@ client.query(
         stockin_id int,
         FOREIGN KEY (stockin_id) REFERENCES stockin(id)
         )`,
-  function (err) {
-    if (err) throw err;
-    console.log("stockin product table created");
-  }
-);
+    function (err) {
+      if (err) throw err;
+      console.log("stockin product table created");
+    }
+  );
+}
 
 module.exports = table;

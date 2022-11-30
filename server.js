@@ -86,3 +86,11 @@ app.use("/productlist", productList);
 const role = require("./router/role");
 
 app.use("/role", role);
+//for stockin
+const stockin = require("./router/stockin");
+
+app.use("/stockin", stockin);
+//for stockinproduct
+const stockinproduct = require("./router/stockin_product");
+
+app.use("/stockinproduct", stockinproduct);

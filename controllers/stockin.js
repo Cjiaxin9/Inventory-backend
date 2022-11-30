@@ -6,22 +6,23 @@ const client = require("../db/db");
 const createNewstockin = async (req, res) => {
   const stockin = await client.query(
     `SELECT * FROM stockin
-    WHERE date = '${req.body.date}' `
+    WHERE date = '${req.body.date}'and company= '${req.body.company}' and category = '${req.body.category}'`
   );
-  if (withdraw.rows[0]?.category) {
+  if (stockin.rows[0]?.company) {
     return res
       .status(400)
-      .json({ status: "error", message: "duplicate withdraw" });
+      .json({ status: "error", message: "duplicate stockin" });
   }
-  const createdpurchasetotal = await client.query(
-    `INSERT INTO withdraw (date,category, location)
-    VALUES ('${req.body.date}','${req.body.category}','${req.body.location}')
+
+  const createdstockin = await client.query(
+    `INSERT INTO stockin (date,company,category)
+    VALUES ('${req.body.date}','${req.body.company}','${req.body.category}')
     RETURNING id;`
   );
 
   try {
     // res.json({ status: "ok", message: "saved" });
-    res.json(createdpurchasetotal);
+    res.json(createdstockin);
   } catch (err) {
     console.error(err.message);
     process.exit(1);
@@ -29,33 +30,33 @@ const createNewstockin = async (req, res) => {
 };
 
 //get all
-const getAllWithdraw = async (req, res) => {
+const getAllstockin = async (req, res) => {
   try {
-    const withdraw = await client.query(`SELECT * FROM withdraw `);
-    res.json({ withdraw });
-    console.log(withdraw.rows);
+    const stockin = await client.query(`SELECT * FROM stockin `);
+    res.json({ stockin });
+    console.log(stockin.rows);
   } catch (err) {
     console.error(err.message);
     res.status(400).json({
       status: "error",
-      message: "failed to GET all withdraw",
+      message: "failed to GET all stockin",
     });
   }
 };
 //find by id
 const findbyid = async (req, res) => {
-  const withdraw = await client.query(
-    `SELECT * FROM withdraw where id = '${req.params.id}'`
+  const stockin = await client.query(
+    `SELECT * FROM stockin where id = '${req.params.id}'`
   );
 
-  res.json(withdraw);
+  res.json(stockin);
 };
 
 //delete
-const deletewithdraw = async (req, res) => {
+const deletestockin = async (req, res) => {
   try {
-    const withdraw = await client.query(
-      `DELETE FROM withdraw where id='${req.body.id}'`
+    const stockin = await client.query(
+      `DELETE FROM stockin where id='${req.body.id}'`
     );
 
     res.json({ status: "ok", message: "deleted" });
@@ -66,23 +67,23 @@ const deletewithdraw = async (req, res) => {
 };
 
 //update
-const updatewithdraw = async (req, res) => {
+const updatestockin = async (req, res) => {
   try {
     // const getID = await client.query(
     //   `SELECT * FROM withdraw
     //     WHERE date = '${req.body.date}'and location= '${req.body.location}';`
     // );
 
-    const updatewithdrawDetailsResult = await client.query(
-      `UPDATE withdraw 
+    const updatewstockinDetailsResult = await client.query(
+      `UPDATE stockin 
         SET  
         date = '${req.body.date}',
         category = '${req.body.category}',
-        location= '${req.body.location}'
+        company= '${req.body.company}'
         WHERE id = '${req.body.id}' 
         RETURNING id;`
     );
-    res.json({ updatewithdrawDetailsResult });
+    res.json({ updatewstockinDetailsResult });
     // res.json({
     //   status: "ok",
     //   message: `updated successfully`,
@@ -97,9 +98,9 @@ const updatewithdraw = async (req, res) => {
 };
 
 module.exports = {
-  createNewWithdraw,
-  getAllWithdraw,
+  createNewstockin,
+  getAllstockin,
   findbyid,
-  deletewithdraw,
-  updatewithdraw,
+  deletestockin,
+  updatestockin,
 };

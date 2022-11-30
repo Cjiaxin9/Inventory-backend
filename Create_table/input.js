@@ -961,26 +961,26 @@ function input() {
     );`
   );
   // insert one withdrawlist
-  client.query(
-    `INSERT INTO withdraw ( date, category, location)
-        SELECT '2022-05-06','SNACK','AMK HUB'
-        WHERE
-        NOT EXISTS (
-         SELECT * FROM withdraw WHERE id = '1');`
-  );
-  client.query(
-    `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
-           SELECT '1','1','EA','COKE ORIGINAL TASTE 320ML - CAN'
-           WHERE
-           NOT EXISTS (
-           SELECT * FROM withdraw_product WHERE id = '1');
+  //   client.query(
+  //     `INSERT INTO withdraw ( date, category, location)
+  //         SELECT '2022-05-06','SNACK','AMK HUB'
+  //         WHERE
+  //         NOT EXISTS (
+  //          SELECT * FROM withdraw WHERE id = '1');`
+  //   );
+  //   client.query(
+  //     `INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
+  //            SELECT '1','1','EA','COKE ORIGINAL TASTE 320ML - CAN'
+  //            WHERE
+  //            NOT EXISTS (
+  //            SELECT * FROM withdraw_product WHERE id = '1');
 
-    INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
-        SELECT '1','1','EA','CADBURY TIMEOUT WAFER'
-        WHERE
-        NOT EXISTS (
-        SELECT * FROM withdraw_product WHERE id = '2');`
-  );
+  //     INSERT INTO withdraw_product(Qty,withdraw_id, unit, product_name)
+  //         SELECT '1','1','EA','CADBURY TIMEOUT WAFER'
+  //         WHERE
+  //         NOT EXISTS (
+  //         SELECT * FROM withdraw_product WHERE id = '2');`
+  //   );
 }
 
 module.exports = input;
